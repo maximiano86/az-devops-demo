@@ -10,7 +10,7 @@ stages:
 - stage: 'Build'
   displayName: 'Build and Push Image'
   jobs:
-  - job: 'Build and Push Image'
+  - job: 'Build_and_Push_Image'
     pool:
       vmImage: 'ubuntu-latest'
 
@@ -39,7 +39,7 @@ stages:
       eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])
     )
   jobs:
-  - job: 'Build/Push Image'
+  - job: 'deploys_to_dev'
     pool:
       vmImage: 'ubuntu-latest'
 
