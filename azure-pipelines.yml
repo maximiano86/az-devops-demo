@@ -46,4 +46,4 @@ stages:
     steps:
     - task: script
       inputs:
-      script: echo 'this is another stage' 
+        script: echo 'this is another stage' 
