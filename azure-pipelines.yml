@@ -29,7 +29,7 @@ stages:
         tags: |
           $(tag)
 
-    - publish: '$(Build.SourcesDirectory)/manifests'
+    - publish: './manifests'
       artifact: manifests
 
 - stage: 'Dev'
@@ -48,7 +48,6 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-
     - task: KubernetesManifest@0
       displayName: 'Deploy to Kubernetes cluster'
       inputs:
