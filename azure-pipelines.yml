@@ -14,7 +14,7 @@ steps:
   inputs:
     command: buildAndPush
     buildContext: $(Build.Repository.LocalPath)
-    repository: 'maximiano86'
+    repository: 'flask'
     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
     containerRegistry: 'docker registry'
     tags: |
