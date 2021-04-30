@@ -6,22 +6,16 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  tag: '$(Build.BuildId)'
 
 steps:
 - task: Docker@2
-  displayName: 'Build an Image'
+  displayName: 'Build and push image to container registry'
   inputs:
-    command: build
-    repository: flask
+    command: buildAndPush
+    buildContext: $(Build.Repository.LocalPath)
+    repository: 'maximiano86'
     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-
-- task: Docker@2
-  displayName: 'Push an image'
-  inputs:
-    containerRegistry: |
-      'Docker Hub'
-    repository: flask
-    command: push
+    containerRegistry: 'docker registry'
     tags: |
-      test1
-      test2
+      $(tag)
