@@ -8,5 +8,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: echo 'hello world!'
-  displayName: 'Simple echo'
+- task: Docker@2
+  displayName: 'Build an Image'
+  inputs:
+    command: build
+    repository: flask
+    dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
