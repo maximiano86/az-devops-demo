@@ -14,8 +14,6 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
 
-    environment: flask-dev
-
     variables:
       tag: '$(Build.BuildId)'
 
@@ -43,27 +41,11 @@ stages:
       succeeded(),
       eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])
     )
-  jobs:
-  - job: 'deploys_to_dev'
-    pool:
-      vmImage: 'ubuntu-latest'
-
-    steps:
-    - task: CmdLine@2
-      displayName: 'Just another echo'
-      inputs:
-        script: echo 'this is another stage' 
-
-- stage: 'Prod'
-  displayName: 'Deploy Prod Environment'
-  dependsOn: Build
 
   jobs:
   - job: 'deploys_to_dev'
     pool:
       vmImage: 'ubuntu-latest'
-    
-    environment: prod
 
     steps:
 
