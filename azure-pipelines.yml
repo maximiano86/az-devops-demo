@@ -44,6 +44,6 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - task: script
+    - task: CmdLine@2
       inputs:
         script: echo 'this is another stage' 
