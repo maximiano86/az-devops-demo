@@ -14,6 +14,8 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
 
+    environment: dev
+
     variables:
       tag: '$(Build.BuildId)'
 
@@ -30,7 +32,7 @@ stages:
           $(tag)
 
 - stage: 'Dev'
-  displayName: 'Deploy to the dev environment'
+  displayName: 'Deploy Dev Environment'
   dependsOn: Build
   condition: |
     and
@@ -45,5 +47,31 @@ stages:
 
     steps:
     - task: CmdLine@2
+      displayName: 'Just another echo'
       inputs:
         script: echo 'this is another stage' 
+
+- stage: 'Prod'
+  displayName: 'Deploy Prod Environment'
+  dependsOn: Build
+
+  jobs:
+  - job: 'deploys_to_dev'
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    environment: prod
+
+    steps:
+
+    - task: KubernetesManifest@0
+      displayName: 'Deploy to Kubernetes cluster'
+      inputs:
+        action: deploy
+        kubernetesServiceConnection: 'azure-k8s-dev'
+        namespace: 'default'
+        manifests: |
+          $(Pipeline.Workspace)/manifests/deployment.yml
+        containers: |
+          $(RegistryName)/python-flask:$(tag)
+
