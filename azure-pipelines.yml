@@ -42,8 +42,8 @@ stages:
   - job: 'Build/Push Image'
     pool:
       vmImage: 'ubuntu-latest'
-  
+
     steps:
     - task: script
       inputs:
-      script: 'echo Write your commands here.' 
+      script: echo 'this is another stage' 
