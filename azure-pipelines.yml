@@ -14,8 +14,6 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
 
-    environment: dev
-
     variables:
       tag: '$(Build.BuildId)'
 
@@ -59,8 +57,6 @@ stages:
   - job: 'deploys_to_dev'
     pool:
       vmImage: 'ubuntu-latest'
-    
-    environment: prod
 
     steps:
 
