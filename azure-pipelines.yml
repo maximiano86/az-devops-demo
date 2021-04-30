@@ -8,26 +8,26 @@ variables:
 
 stages:
 - stage: 'Build '
-  displaName: 'Build and Push Image'
+  displayName: 'Build and Push Image'
   jobs:
   - job: 'Build/Push Image'
-  pool:
-    vmImage: 'ubuntu-latest'
+    pool:
+      vmImage: 'ubuntu-latest'
 
-  variables:
-    tag: '$(Build.BuildId)'
+    variables:
+      tag: '$(Build.BuildId)'
 
-  steps:
-  - task: Docker@2
-    displayName: 'docker build & docker push'
-    inputs:
-      command: buildAndPush
-      buildContext: $(Build.Repository.LocalPath)
-      repository: 'maximiano86/flask'
-      dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-      containerRegistry: 'docker registry'
-      tags: |
-        $(tag)
+    steps:
+    - task: Docker@2
+      displayName: 'docker build & docker push'
+      inputs:
+        command: buildAndPush
+        buildContext: $(Build.Repository.LocalPath)
+        repository: 'maximiano86/flask'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        containerRegistry: 'docker registry'
+        tags: |
+          $(tag)
 
 - stage: 'Dev'
   displayName: 'Deploy to the dev environment'
@@ -40,10 +40,10 @@ stages:
     )
   jobs:
   - job: 'Build/Push Image'
-  pool:
-    vmImage: 'ubuntu-latest'
-
-  steps:
-  - task: script
-    inputs:
-    script: 'echo Write your commands here.' 
+    pool:
+      vmImage: 'ubuntu-latest'
+  
+    steps:
+    - task: script
+      inputs:
+      script: 'echo Write your commands here.' 
