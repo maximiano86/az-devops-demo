@@ -26,8 +26,8 @@ stages:
         repository: 'maximiano86/flask'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         containerRegistry: 'docker registry'
-        #tags: |
-        #  $(tag)
+        tags: |
+          $(tag)
 
     - publish: './manifests'
       artifact: manifests
