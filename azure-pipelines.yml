@@ -14,3 +14,14 @@ steps:
     command: build
     repository: flask
     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+
+- task: Docker@2
+  displayName: 'Push an image'
+  inputs:
+    containerRegistry: |
+      'maximiano86'
+    repository: flask
+    command: push
+    tags: |
+      test1
+      test2
