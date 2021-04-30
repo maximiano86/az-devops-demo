@@ -7,10 +7,10 @@ variables:
   
 
 stages:
-- stage: 'Build '
+- stage: 'Build'
   displayName: 'Build and Push Image'
   jobs:
-  - job: 'Build/Push Image'
+  - job: 'Build and Push Image'
     pool:
       vmImage: 'ubuntu-latest'
 
