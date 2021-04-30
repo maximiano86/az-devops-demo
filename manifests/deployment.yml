@@ -1,0 +1,33 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: python-flask
+spec:
+  selector:
+    matchLabels:
+      app: python-flask
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: python-flask
+    spec:
+      containers:
+      - name: python-flask
+        image: maximiano86/flask
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-flask
+spec:
+  selector:
+    app: python-flask
+  ports:
+    - protocol: TCP
+      name: http
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer
