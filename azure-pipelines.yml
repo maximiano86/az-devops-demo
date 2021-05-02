@@ -55,6 +55,7 @@ stages:
       inputs:
         action: deploy
         kubernetesServiceConnection: 'k8s-dev'
+        kubernetesServiceConnection: 'ibmcloud kubernetes'
         namespace: 'default'
         manifests: |
           $(Pipeline.Workspace)/manifests/deployment.yml
