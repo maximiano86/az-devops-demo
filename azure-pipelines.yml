@@ -54,7 +54,7 @@ stages:
       displayName: 'Deploy to Kubernetes cluster'
       inputs:
         action: deploy
-        kubernetesServiceConnection: 'k8s-dev'
+        #kubernetesServiceConnection: 'k8s-dev'
         kubernetesServiceConnection: 'ibmcloud kubernetes'
         namespace: 'default'
         manifests: |
