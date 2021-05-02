@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: python-flask
-        image: maximiano86/flask
+        image: maximiano86/flask:45
         ports:
         - containerPort: 5000
 ---
