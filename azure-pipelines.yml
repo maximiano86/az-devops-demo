@@ -5,7 +5,6 @@ variables:
   buildConfiguration: 'Release'
   releaseBranchName: 'master'
   
-
 stages:
 - stage: 'Build'
   displayName: 'Build and Push Image'
@@ -32,9 +31,9 @@ stages:
     - publish: './manifests'
       artifact: manifests
 
-- stage: 'Dev'
+- stage: 'Deploy to Dev'
   displayName: 'Deploy Dev Environment'
-  dependsOn: Build
+  dependsOn: 'Build'
   condition: |
     and
     (
@@ -54,11 +53,10 @@ stages:
       displayName: 'Deploy to Kubernetes cluster'
       inputs:
         action: deploy
-        #kubernetesServiceConnection: 'k8s-dev'
         kubernetesServiceConnection: 'ibmcloud kubernetes'
         namespace: 'default'
         manifests: |
           $(Pipeline.Workspace)/manifests/deployment.yml
         containers: |
-          $(RegistryName)/python-flask:$(tag)
+          maximiano86/flask:$(tag)
 
