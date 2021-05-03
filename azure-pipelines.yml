@@ -43,6 +43,8 @@ stages:
   - job: 'deploys_to_dev'
     pool:
       vmImage: 'ubuntu-latest'
+    
+    environment: 'ibmcloud cluster'
 
     steps:
     - download: current
@@ -52,7 +54,6 @@ stages:
       inputs:
         action: deploy
         #kubernetesServiceConnection: 'ibmcloud kubernetes'
-        environment: 'ibmcloud cluster'
         namespace: 'default'
         manifests: |
           $(Pipeline.Workspace)/manifests/deployment.yml
