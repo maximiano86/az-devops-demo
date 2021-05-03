@@ -31,7 +31,7 @@ stages:
     - publish: './manifests'
       artifact: manifests
 
-- stage: 'Deploy to Dev'
+- stage: 'Deploy_Dev'
   displayName: 'Deploy Dev Environment'
   dependsOn: 'Build'
   condition: |
