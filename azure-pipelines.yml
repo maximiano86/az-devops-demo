@@ -42,32 +42,19 @@ stages:
   jobs:
   - job: 'deploys_to_dev'
     pool:
-      vmImage: 'ubuntu-latest' 
-    environment: 'ibmcloud_cluster.default'
-    strategy: 
-      runOnce:
-        deploy:
-        steps:
-        - download: current
-          artifact: manifests
-        - task: KubernetesManifest@0
-          displayName: Deploy to Kubernetes cluster
-          inputs:
-            action: deploy
-            namespace: $(k8sNamespace)
-            manifests: $(Pipeline.Workspace)/manifests/deployment.yml
-            containers: maximiano86/flask:$(tag)
+      vmImage: 'ubuntu-latest'
 
-    #steps:
-#
-    #- task: KubernetesManifest@0
-    #  displayName: 'Deploy to Kubernetes cluster'
-    #  inputs:
-    #    action: deploy
-    #    #kubernetesServiceConnection: 'ibmcloud kubernetes'
-    #    namespace: 'default'
-    #    manifests: |
-    #      $(Pipeline.Workspace)/manifests/deployment.yml
-    #    containers: |
-    #      maximiano86/flask:$(tag)
+    steps:
+    - download: current
+      artifact: manifests
+    - task: KubernetesManifest@0
+      displayName: 'Deploy to Kubernetes cluster'
+      inputs:
+        action: deploy
+        kubernetesServiceConnection: 'ibmcloud kubernetes'
+        namespace: 'default'
+        manifests: |
+          $(Pipeline.Workspace)/manifests/deployment.yml
+        containers: |
+          maximiano86/flask:$(tag)
 
