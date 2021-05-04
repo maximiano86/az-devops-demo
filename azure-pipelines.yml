@@ -43,11 +43,12 @@ stages:
     #displayName: 'Provision Azure App Service'
     pool:
       vmImage: 'ubuntu-18.04'
+    variables:
+    - group: terraform-variables
     steps:
     - script: |
         #set -e
-        env
-        echo $(ARM_CLIENT_ID)
+        env | grep ARM
         cd IaC
         terraform init 
         terraform plan
