@@ -47,18 +47,17 @@ stages:
     - group: terraform-variables
     steps:
     - script: |
-        #set -e
-        env | grep ARM
+        set -e
         cd IaC
         terraform init 
         terraform plan
       name: 'RunTerraform'
       displayName: 'Run Terraform'
       env:
-        ARM_CLIENT_ID: $(ARM_CLIENT_ID)
-        ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
-        ARM_TENANT_ID: $(ARM_TENANT_ID)
-        ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+        #ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+        #ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+        #ARM_TENANT_ID: $(ARM_TENANT_ID)
+        #ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
         ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
   - deployment: 'Deploy'
     dependsOn: Provision
