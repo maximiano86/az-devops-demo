@@ -40,7 +40,7 @@ stages:
 
   jobs:
   - job: Provision
-    displayName: 'Provision Azure App Service'
+    #displayName: 'Provision Azure App Service'
     pool:
       vmImage: 'ubuntu-18.04'
     steps:
