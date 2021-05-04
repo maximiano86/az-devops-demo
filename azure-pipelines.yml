@@ -46,7 +46,7 @@ stages:
     steps:
     - script: |
         #set -e
-        echo $ARM_CLIENT_ID
+        env
         echo $(ARM_CLIENT_ID)
         cd IaC
         terraform init 
