@@ -40,36 +40,35 @@ stages:
 
   jobs:
   - job: Provision
-      displayName: 'Provision Azure App Service'
-      pool:
-        vmImage: 'ubuntu-18.04'
-      steps:
-      - scripts: |
-          set -e
-          terraform init 
-          terraform plan
-      name: 'RunTerraform'
-      displayName: 'Run Terraform'
-      env:
-        ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
-    - deployment: 'Deploy'
-      pool:
-        vmImage: 'ubuntu-latest'
-      environment: 'ibmcloud_cluster'
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-              - download: current
-                artifact: manifests
-              - task: KubernetesManifest@0
-                displayName: 'Deploy to Kubernetes cluster'
-                inputs:
-                  action: deploy
-                  kubernetesServiceConnection: 'ibmcloud kubernetes'
-                  namespace: 'default'
-                  manifests: |
-                    $(Pipeline.Workspace)/manifests/deployment.yml
-                  containers: |
-                    maximiano86/flask:$(tag)
-
+    displayName: 'Provision Azure App Service'
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+    - scripts: |
+        set -e
+        terraform init 
+        terraform plan
+    name: 'RunTerraform'
+    displayName: 'Run Terraform'
+    env:
+      ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+  - deployment: 'Deploy'
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'ibmcloud_cluster'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - download: current
+              artifact: manifests
+            - task: KubernetesManifest@0
+              displayName: 'Deploy to Kubernetes cluster'
+              inputs:
+                action: deploy
+                kubernetesServiceConnection: 'ibmcloud kubernetes'
+                namespace: 'default'
+                manifests: |
+                  $(Pipeline.Workspace)/manifests/deployment.yml
+                containers: |
+                  maximiano86/flask:$(tag)
