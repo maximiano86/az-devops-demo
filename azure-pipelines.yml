@@ -53,6 +53,10 @@ stages:
       displayName: 'Run Terraform'
       env:
         ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+        ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+        ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+        ARM_TENANT_ID: $(ARM_TENANT_ID)
+        ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
   - deployment: 'Deploy'
     pool:
       vmImage: 'ubuntu-latest'
