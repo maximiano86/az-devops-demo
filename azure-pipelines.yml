@@ -46,6 +46,7 @@ stages:
     steps:
     - script: |
         set -e
+        cd terraform
         terraform init 
         terraform plan
       name: 'RunTerraform'
