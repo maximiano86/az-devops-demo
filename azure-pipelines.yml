@@ -38,8 +38,7 @@ stages:
       eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])
     )
   jobs:
-  - job: Provision
-    #displayName: 'Provision Azure App Service'
+  - job: IaC
     pool:
       vmImage: 'ubuntu-18.04'
     variables:
@@ -61,7 +60,7 @@ stages:
 
 - stage: 'Deploy_Dev'
   displayName: 'Deploy Dev Environment'
-  dependsOn: 'Build'
+  dependsOn: 'Create_Infra'
   condition: |
     and
     (
