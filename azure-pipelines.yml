@@ -48,10 +48,10 @@ stages:
         set -e
         terraform init 
         terraform plan
-    name: 'RunTerraform'
-    displayName: 'Run Terraform'
-    env:
-      ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+      name: 'RunTerraform'
+      displayName: 'Run Terraform'
+      env:
+        ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
   - deployment: 'Deploy'
     pool:
       vmImage: 'ubuntu-latest'
