@@ -2,7 +2,6 @@ trigger:
 - master
 
 variables:
-  buildConfiguration: 'Release'
   releaseBranchName: 'master'
   tag: '$(Build.BuildId)'
   
@@ -40,6 +39,19 @@ stages:
     )
 
   jobs:
+  - job: Provision
+      displayName: 'Provision Azure App Service'
+      pool:
+        vmImage: 'ubuntu-18.04'
+      steps:
+      - scripts: |
+          set -e
+          terraform init 
+          terraform plan
+      name: 'RunTerraform'
+      displayName: 'Run Terraform'
+      env:
+        ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
     - deployment: 'Deploy'
       pool:
         vmImage: 'ubuntu-latest'
