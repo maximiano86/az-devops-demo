@@ -28,8 +28,8 @@ stages:
     - publish: './manifests'
       artifact: manifests
 
-- stage: 'Deploy_Dev'
-  displayName: 'Deploy Dev Environment'
+- stage: 'Create_Infra'
+  displayName: 'Infra as Code'
   dependsOn: 'Build'
   condition: |
     and
@@ -37,7 +37,6 @@ stages:
       succeeded(),
       eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])
     )
-
   jobs:
   - job: Provision
     #displayName: 'Provision Azure App Service'
@@ -59,6 +58,18 @@ stages:
         ARM_TENANT_ID: $(ARM_TENANT_ID)
         ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
         ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
+
+- stage: 'Deploy_Dev'
+  displayName: 'Deploy Dev Environment'
+  dependsOn: 'Create_Infra'
+  condition: |
+    and
+    (
+      succeeded(),
+      eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])
+    )
+
+  jobs:
   - deployment: 'Deploy'
     dependsOn: Provision
     pool:
