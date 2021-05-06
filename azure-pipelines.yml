@@ -15,6 +15,7 @@ stages:
 
     steps:
     - script: |
+        set -e
         pip3 install pytest
         pip3 install pytest-cov
         pytest testing.py --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
