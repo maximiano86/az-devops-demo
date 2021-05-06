@@ -31,7 +31,6 @@ stages:
         summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
         reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
       
-
 - stage: 'Build'
   displayName: 'Build and Push Image'
   dependsOn: 'Testing'
